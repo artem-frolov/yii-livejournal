@@ -3,7 +3,7 @@
  * Livejournal extension for the Yii framework
  * @author Artem Frolov
  * @link http://frolov.net/
- * @version 0.2
+ * @version 0.3
  *
  * Requirements
  * - Yii 1.0, 1.1 or above
@@ -336,7 +336,8 @@ class ELivejournal extends CComponent {
 	protected function getContext($request) {
 		return stream_context_create(array('http' => array(
 					'method'  => "POST",
-					'header'  => "Content-Type: text/xml; charset=UTF-8",
+					'header'  => "Content-Type: text/xml; charset=UTF-8\r\n".
+					             "User-Agent: Yii livejournal extension\r\n",
 					'content' => $request
 				)));
 	}
