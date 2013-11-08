@@ -1,0 +1,24 @@
+{
+    "name": "artem-frolov/yii-livejournal",
+    "type": "library",
+    "description": "Yii extension for Livejournal.com",
+    "keywords": ["yii","livejournal","xml-rpc","livejournal.com","blog"],
+    "homepage": "https://github.com/artem-frolov/yii-livejournal",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Artem Frolov",
+            "email": "artem@frolov.net",
+            "homepage": "http://frolov.net/",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": ">=5.1.0"
+    },
+    "autoload": {
+        "psr-0": {
+            "ELivejournal": ""
+        }
+    }
+}
