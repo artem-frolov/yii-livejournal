@@ -16,6 +16,11 @@
     "require": {
         "php": ">=5.1.0"
     },
+    "require-dev": {
+        "phpmd/phpmd" : "*",
+        "squizlabs/php_codesniffer": "*",
+        "yiisoft/yii": "~1.1"
+    },
     "autoload": {
         "psr-0": {
             "ELivejournal": ""
