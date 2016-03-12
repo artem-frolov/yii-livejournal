@@ -1,9 +1,11 @@
 <?php
+
 /**
- * Livejournal extension for the Yii framework
- * @author Artem Frolov
- * @link http://frolov.net/
- * @version 0.3
+ * Livejournal extension for the Yii 1.x framework
+ *
+ * @author  Artem Frolov <artem@frolov.net>
+ * @license MIT https://opensource.org/licenses/MIT
+ * @link    http://frolov.net/
  *
  * Requirements
  * - Yii 1.0, 1.1 or above
@@ -39,13 +41,13 @@ $post->subject = 'Subject test';
 $post->body = 'Hello, <b>world</b>';
 if ($post->save())
 {
-	echo "Entry's id: ".$post->id;
-	echo "<br />Entry's url: ".$post->url;
+    echo "Entry's id: ".$post->id;
+    echo "<br />Entry's url: ".$post->url;
 }
 else
 {
-	echo '<b>Error (code '.$post->errorCode.'): </b>';
-	echo $post->error;
+    echo '<b>Error (code '.$post->errorCode.'): </b>';
+    echo $post->error;
 }
 
 =======
@@ -82,21 +84,19 @@ $post->setDeleteNewLines();
 
 if ($post->save())
 {
-	echo "Entry's id: ".$post->id;
-	echo "<br />Entry's url: ".$post->url;
+    echo "Entry's id: ".$post->id;
+    echo "<br />Entry's url: ".$post->url;
 }
 else
 {
-	echo '<b>Error (code '.$post->errorCode.'): </b>';
-	echo $post->error;
+    echo '<b>Error (code '.$post->errorCode.'): </b>';
+    echo $post->error;
 }
 
 */
 
 /**
- * ELivejournal class to create and update posts on the Livejounral.com
- *
- * @author Artem Frolov
+ * ELivejournal class to create and update posts on LiveJounral.com
  */
 class ELivejournal extends CComponent
 {
@@ -162,12 +162,12 @@ class ELivejournal extends CComponent
     /**
      * Constructor
      * 
-     * @param string $username
-     *            Username for the Livejournal.com
-     * @param string $password
-     *            Password or MD5 hash of the password for the Livejournal.com
+     * @param string  $username
+     *                Username for the Livejournal.com
+     * @param string  $password
+     *                Password or MD5 hash of the password for the Livejournal.com
      * @param boolean $isHash
-     *            Was $password alreary hashed?
+     *                Was $password alreary hashed?
      */
     public function __construct($username, $password, $isHash = false)
     {
@@ -213,8 +213,7 @@ class ELivejournal extends CComponent
     {
         if (!empty($this->data['props']['taglist'])) {
             $this->data['props']['taglist'] .= ',' . $tag;
-        }
-        else {
+        } else {
             $this->data['props']['taglist'] = $tag;
         }
     }
@@ -303,18 +302,16 @@ class ELivejournal extends CComponent
         
         if (isset($this->data['itemid'])) {
             $procedure = 'editevent';
-        }
-        else {
+        } else {
             $procedure = 'postevent';
         }
         
         $this->request($procedure, $this->data);
         if (xmlrpc_is_fault($this->response) || !isset($this->response['itemid']) ||
-             !isset($this->response['url']) || !isset($this->response['anum'])) {
+            !isset($this->response['url']) || !isset($this->response['anum'])) {
             
             return false;
-        }
-        else {
+        } else {
             $this->data['itemid'] = $this->response['itemid'];
             $this->url = $this->response['url'];
             $this->anum = $this->response['anum'];
@@ -326,40 +323,42 @@ class ELivejournal extends CComponent
     /**
      * Getter of the last error's description
      * 
-     * @return string Last error's description
+     * @return string|null Last error's description
      */
     public function getError()
     {
         if (isset($this->response['faultString'])) {
             return $this->response['faultString'];
-        }
-        elseif (isset($this->response['errmsg'])) {
+        } elseif (isset($this->response['errmsg'])) {
             return $this->response['errmsg'];
         }
+        return null;
     }
 
     /**
      * Getter of the last error's code
      * 
-     * @return integer Last error's code
+     * @return integer|null Last error's code
      */
     public function getErrorCode()
     {
         if (isset($this->response['faultCode'])) {
             return $this->response['faultCode'];
         }
+        return null;
     }
 
     /**
      * Getter of the entry's id
      * 
-     * @return integer Entry's id
+     * @return integer|null Entry's id
      */
     public function getId()
     {
         if (isset($this->data['itemid'])) {
             return $this->data['itemid'];
         }
+        return null;
     }
 
     /**
@@ -391,14 +390,16 @@ class ELivejournal extends CComponent
      */
     protected function getContext($request)
     {
-        return stream_context_create(array(
-            'http' => array(
-                'method' => "POST",
-                'header' => "Content-Type: text/xml; charset=UTF-8\r\n" .
-                     "User-Agent: Yii livejournal extension\r\n",
-                    'content' => $request
+        return stream_context_create(
+            array(
+                'http' => array(
+                    'method' => "POST",
+                    'header' => "Content-Type: text/xml; charset=UTF-8\r\n" .
+                         "User-Agent: Yii livejournal extension\r\n",
+                        'content' => $request
+                )
             )
-        ));
+        );
     }
 
     /**
@@ -423,11 +424,11 @@ class ELivejournal extends CComponent
         $this->request('getchallenge');
         if (xmlrpc_is_fault($this->response)) {
             return false;
-        }
-        else {
+        } else {
             $this->data['auth_challenge'] = $this->response['challenge'];
-            $this->data['auth_response'] = md5($this->data['auth_challenge'] .
-                 $this->passwordHash);
+            $this->data['auth_response'] = md5(
+                $this->data['auth_challenge'] . $this->passwordHash
+            );
             return true;
         }
     }
@@ -436,9 +437,9 @@ class ELivejournal extends CComponent
      * Method makes XML-RPC request to the API
      * 
      * @param string $procedure
-     *            Procedure's name
-     * @param array $data
-     *            Request's information
+     *               Procedure's name
+     * @param array  $data
+     *               Request's information
      */
     protected function request($procedure, $data = array())
     {
