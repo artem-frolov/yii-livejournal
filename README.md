@@ -3,6 +3,9 @@ Yii extension for Livejournal.com
 
 With ELivejournal class you can create new entries and update existing entries in your LiveJournal.com blog.
 
+- License: [MIT](https://opensource.org/licenses/MIT)
+- Developed by [Artem Frolov](http://frolov.net)
+
 Requirements
 -------------
 - Yii 1.0, 1.1 or above
@@ -88,6 +91,3 @@ required
 ## Resources
 - [yii-livejournal extension page on yiiframework.com](http://www.yiiframework.com/extension/livejournal)
 - [Composer package on packagist.com](https://packagist.org/packages/artem-frolov/yii-livejournal)
-
-## License
-[MIT](https://opensource.org/licenses/MIT)
