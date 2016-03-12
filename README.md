@@ -36,7 +36,7 @@ else
 Yii::import('ext.livejournal.*');
 $post = new ELivejournal('username', 'md5_hash_of_the_password', true);
 
-//Use the next line if you want to update the entry with specific id
+//Use the following line if you want to update an entry by id
 //$post->id = 2;
 
 $post->subject = 'Subject test';
@@ -59,7 +59,7 @@ $post->setMetadata('opt_nocomments',true);
 $post->setPrivate();
 
 //Turns on \r and \n removing from the entry's body
-//Sometimes it's useful because the LiveJournal.com translates new lines to <br>
+//Sometimes it's useful because LiveJournal.com translates new lines to <br>
 $post->setDeleteNewLines();
 
 if ($post->save())
