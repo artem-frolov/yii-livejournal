@@ -86,8 +86,8 @@ required
 - minor fixes
 
 ## Resources
-[yii-livejournal extension page on yiiframework.com](http://www.yiiframework.com/extension/livejournal)
-[Composer package on packagist.com](https://packagist.org/packages/artem-frolov/yii-livejournal)
+- [yii-livejournal extension page on yiiframework.com](http://www.yiiframework.com/extension/livejournal)
+- [Composer package on packagist.com](https://packagist.org/packages/artem-frolov/yii-livejournal)
 
 ## License
 [MIT](https://opensource.org/licenses/MIT)
